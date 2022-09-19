@@ -1,69 +1,95 @@
-const productos = [
-    {nombre: "semillas de chia 300g", precio: 392},
-    {nombre: "mix frutal 100g", precio: 430},
-    {nombre: "jugo natural de frutas 1lt", precio: 210},
-    {nombre: "limonada 1lt", precio: 190},
-    {nombre: "frutos secos 100g", precio: 210},
-]
-
-let carrito = []
-
-let seleccion = prompt("Bienvenido a AlmaZen desea comprar algun producto? (si / no)")
-
-while(seleccion != "si" && seleccion != "no"){
-    alert("Ingresar si o no.")
-    seleccion = prompt("Respues invalida, desea comprar algo? (si / no)")
-}
-
-if(seleccion == "si"){
-    alert("Productos en stock")
-    let todoslosProductos = productos.map((producto)=> producto.nombre + " " + producto.precio + "$")
-    alert(todoslosProductos.join(" - "))
-}else if (seleccion == "no"){
-    alert("Gracias vuelva prontos.")
-}
-
-while(seleccion != "no"){
-    let producto = prompt("agregar al carrito (semillas de chia 300g, mix frutal 100g, jugo natural de frutas 1lt, limonada 1lt, frutos secos 100g.)" )
-    let precio = 0
-
-    if(producto == "semillas de chia 300g" || producto == "mix frutal 100g" || producto == "jugo natural de frutas 1lt" || producto == "limonada 1lt" || producto == "frutos secos 100g"){
-        switch(producto){
-            case "semillas de chia 300g":
-                precio = 392;
-                break;
-            case "mix frutal 100g":
-                precio = 430;
-                break;
-            case "jugo natural de frutas 1lt":
-                precio = 210;
-                break;
-            case "limonada 1lt":
-                precio = 190;
-                break;
-            case "frutos secos 100g":
-                precio = 210;
-                break;
-            default:
-                break;
-        }
-        let unidades = parseInt(prompt ("¿cuantos desea llevar?"))
-
-        carrito.push({producto, unidades, precio})
-        console.log(carrito)
-    }else{
-        alert("Producto fuera de stock")
+class User {
+    constructor(usuario, edad, region, vioDark) {
+        this.usuario = usuario
+        this.edad = edad
+        this.region = region
+        this.vioDark = vioDark
     }
-
-    seleccion = prompt("¿desea llevar algo mas? (si / no)")
-    while(seleccion === "no"){
-        alert("Gracias por comprar en tu ALMAZEN")
-        carrito.forEach((carritoFinal) => {
-            console.log(`producto: ${carritoFinal.producto}, unidades: ${carritoFinal.unidades}, total a pagar: ${carritoFinal.unidades * carritoFinal.precio}`)
-        })
-        break;
+  }
+  
+  function crearUsuario() {
+  let usuario = prompt("Ingresa tu usuario")
+  let edad = prompt("Ingresa tu edad")
+  let region = prompt("Ingresa tu region (EU, EUW, LAS, NA, BR.")
+  let vioDark = prompt("¿Has visto dark? (Si/No)")
+  
+  if (vioDark.toLocaleLowerCase () === "si") {
+    vioDark = true
+  } else {
+    alert ("Te recomiendo verla con una libreta.. te vas a perder")
+  }
+  
+  const objetoUsuario = new User(
+    usuario,
+    edad,
+    pais,
+    vioDark,
+  );
+  return objetoUsuario
+  }
+  
+  const usuarioUno = crearUsuario()
+  console.info(usuarioUno)
+  
+  const top5 = [ 
+'Peaky Blinders',
+'Black Mirror',
+'Bojack Horseman',
+'Narcos',
+'Stranger Things',
+  ]
+  
+  console.log(top5)
+  
+  const seriesVistas = []
+  
+  let opcion
+  
+  do {
+    opcion = parseInt(prompt("Bienvenido a QueHayNetflix! que quieres hacer hoy? \n1.Ver nuestro top5 de la semana \n2.Anota que series vistes.\n3.Series ya vistas \n4 Salir del menu"))
+  
+  
+    switch (opcion) {
+        case 1:
+  
+            function mostrarMenu() {
+                let mensaje = "top5"
+                let count = 1
+  
+                for (let series of top5) {
+                    mensaje += `\n${count}. ${series}`
+                    count++
+                }
+                return mensaje
+            }
+  
+            alert(mostrarMenu())
+  
+            break
+        case 2:
+            let series = prompt("Que serie quieres anotar?")
+            seriesVistas.push(series)
+            console.log(seriesVistas)
+  
+            break
+        case 3:
+  
+            function nuevaLista() {
+                let mensaje = "series ya vistas"
+                let count = 1
+  
+                for (let series of seriesVistas) {
+                    mensaje += `\n${count}. ${series}`
+                    count++
+                }
+                return mensaje
+            }
+            alert(nuevaLista())
+            break
+  
+        case 4:
+            alert("Gracias por usar QueHayNetflix, no olvides contarles a tus amigos sobre nosotros")
+  
     }
-}
-
-const total = carrito.reduce((acc, el) => acc + el.precio * el.unidades, 0)
-alert(`Debe abonar: $ ${total} `)
+  
+  } while (opcion !== 4)
